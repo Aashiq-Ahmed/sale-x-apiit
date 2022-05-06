@@ -4,6 +4,13 @@
     <div class="container">
         <div class="row">
             <div class="col">
+                <a href="{{ route('users.create') }}" class="btn btn-primary mt-4 mb-4">
+                    Add User
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
                 <table class="table bg-white table-striped">
                     <thead>
                         <tr>
@@ -24,7 +31,18 @@
                                 <td>
                                     <a href="{{ route('users.show', $user->id) }}" class="btn btn-sm btn-success">View</a>
                                     <a href="{{ route('users.edit', $user->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                                    <a href="{{ route('users.destroy', $user->id) }}" class="btn btn-sm btn-danger">Delete</a>
+
+                                    @if ($user->id != auth()->id())
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                            id="delete-{{ $user->id }}-user" class="d-inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-sm btn-danger"
+                                                onclick="confirm('Are you sure you want to delete {{ $user->name }} ?') ? document.getElementById('delete-{{ $user->id }}-user').submit() : null">
+                                                Delete
+                                            </button>
+                                        </form>
+                                    @endif
                                 </td>
                             </tr>
                         @endforeach

@@ -20,6 +20,11 @@ Route::resource('users', App\Http\Controllers\UserController::class)->middleware
     'admin',
 ]);
 
+Route::resource('users', App\Http\Controllers\UserController::class)->middleware([
+    'auth',
+    'admin',
+]);
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/', function () {
