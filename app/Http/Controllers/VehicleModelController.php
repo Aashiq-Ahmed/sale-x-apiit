@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\VehicleModel;
 use App\Http\Requests\StoreVehicleModelRequest;
 use App\Http\Requests\UpdateVehicleModelRequest;
+use App\Models\VehicleModel;
+use Illuminate\Http\Request;
 
 class VehicleModelController extends Controller
 {
@@ -15,7 +16,9 @@ class VehicleModelController extends Controller
      */
     public function index()
     {
-        //
+        return view('vehicle-model.index', [
+            'vehicle_models' => VehicleModel::paginate(),
+        ]);
     }
 
     /**
@@ -58,7 +61,10 @@ class VehicleModelController extends Controller
      */
     public function edit(VehicleModel $vehicleModel)
     {
-        //
+        return view('vehicle-model.edit', [
+            'vehicleModel' => $vehicleModel,
+            'manufacturers' => \App\Models\Manufacturer::all(),
+        ]);
     }
 
     /**
@@ -68,9 +74,21 @@ class VehicleModelController extends Controller
      * @param  \App\Models\VehicleModel  $vehicleModel
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateVehicleModelRequest $request, VehicleModel $vehicleModel)
+    public function update(Request $request, VehicleModel $vehicleModel)
     {
-        //
+        $validated = $request->validate([
+            "manufacturer_id" => "required",
+            "name" => "required",
+            "description" => "required",
+        ]);
+
+        $vehicleModel->update($validated);
+
+        // set the success message to the session
+        session()->flash('success', 'Vehicle Model updated successfully');
+
+        // redirect to user page
+        return redirect()->route('vehicle-models.index');
     }
 
     /**
@@ -81,6 +99,13 @@ class VehicleModelController extends Controller
      */
     public function destroy(VehicleModel $vehicleModel)
     {
-        //
+
+        $vehicleModel->delete();
+
+         // set the success message to the session
+         session()->flash('success', 'Vehicle Model is deleted successfully');
+
+         // redirect to user page
+         return redirect()->route('vehicle-models.index');
     }
 }
