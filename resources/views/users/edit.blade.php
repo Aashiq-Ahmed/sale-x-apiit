@@ -4,7 +4,8 @@
     <div class="container">
         <div class="row">
             <div class="bg-white col p-4 rounded rounded-2 col-md-8">
-                <form class="row g-3" method="POST" action="{{ route('users.update', $user->id) }}">
+                <form class="row g-3" method="POST" action="{{ route('users.update', $user->id) }}"
+                    enctype="multipart/form-data">
                     @method('PUT')
                     @csrf
 
@@ -14,51 +15,24 @@
 
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label for="name" class="form-label">Name</label>
-                                    <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                        name="name" value="{{ old('name', $user->name) }}" />
-                                    <div id="nameHelp" class="form-text">Your user name</div>
-                                    @error('name')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                    <x-text-field field-id="name" label="Name" help-text="Your User Name" type="text"
+                                        :model="$user" />
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="email" class="form-label">Email</label>
-                                    <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                                        name="email" value="{{ old('email', $user->email) }}" />
-                                    <div id="emailHelp" class="form-text">Email Address</div>
-                                    @error('email')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                    <x-text-field field-id="email" label="Email" help-text="Email Address" type="email"
+                                        :model="$user" />
                                 </div>
                             </div>
 
                             <div class="row mt-2">
                                 <div class="col-md-6">
-                                    <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                        id="password" name="password" />
-                                    <div id="passwordHelp" class="form-text">Password</div>
-                                    @error('password')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                    <x-text-field field-id="password" label="Password"
+                                        help-text="Password must be a minimum of 8 characters" type="password"
+                                        :model="$user" />
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="password_confirmation" class="form-label">Confirm Password</label>
-                                    <input type="password"
-                                        class="form-control @error('password_confirmation') is-invalid @enderror" id="password_confirmation"
-                                        name="password_confirmation" />
-                                    @error('password_confirmation')
-                                        <div class="invalid-feedback">
-                                            {{ $message }}
-                                        </div>
-                                    @enderror
+                                    <x-text-field field-id="password_confirmation" label="Confirm Password"
+                                        help-text="Please confirm the password" type="password" :model="$user" />
                                 </div>
                             </div>
 
@@ -89,6 +63,23 @@
                             <h5 class="card-title">Personal Information</h5>
 
                             <div class="row">
+                                <div class="col-md-12">
+                                    @if ($user->avatar)
+                                        <img src="{{ asset('storage/' . $user->avatar) }}" alt="" style="width: 100px">
+                                    @endif
+                                </div>
+                                <div class="col-md-12 pt-3">
+                                    <label for="avatar" class="form-label">User Avatar</label>
+                                    <input type="file" name="avatar" class="form-control @error('avatar') is-invalid @enderror" />
+                                    @error('avatar')
+                                        <div class="invalid-feedback">
+                                            {{ $message }}
+                                        </div>
+                                    @enderror
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-md-12 pt-3">
                                     <label for="title" class="form-label">Title</label>
                                     <select class="form-select @error('title') is-invalid @enderror" id="title"
@@ -108,7 +99,6 @@
                                     @enderror
                                 </div>
                             </div>
-
 
                             <div class="row pt-3">
                                 <div class="col-6">
@@ -262,13 +252,12 @@
                 </form>
             </div>
             <div class="col-md-4">
-                <form action="{{ route('users.destroy', $user->id) }}"
-                    method="POST" id="delete-{{ $user->id }}-user">
+                <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                    id="delete-{{ $user->id }}-user">
                     @csrf
                     @method('DELETE')
-                    <button type="button"
-                            class="btn btn-danger"
-                            onclick="confirm('Are you sure you want to delete {{ $user->name }} ?') ? document.getElementById('delete-{{ $user->id }}-user').submit() : null">
+                    <button type="button" class="btn btn-danger"
+                        onclick="confirm('Are you sure you want to delete {{ $user->name }} ?') ? document.getElementById('delete-{{ $user->id }}-user').submit() : null">
                         Delete
                     </button>
                 </form>

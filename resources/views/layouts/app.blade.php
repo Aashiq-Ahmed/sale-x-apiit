@@ -31,7 +31,9 @@
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="{{ asset('/images/logo1.png') }}"
+                        style="width: 150px;"
+                        alt="{{ config('app.name', 'Laravel') }}">
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -49,15 +51,60 @@
                                     Adminstration
                                 </a>
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                                    <li class="text-black-50 ps-3">Authentication</li>
+                                    <li><hr class="dropdown-divider"></li>
                                     <li>
                                         <a class="dropdown-item" href="{{ route('users.index') }}">Users</a>
+                                    </li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li class="text-black-50 ps-3">Product</li>
+                                    <li><hr class="dropdown-divider"></li>
+
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('manufacturers.index') }}">Manufacturers</a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('vehicle-models.index') }}">Models</a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('vehicle-addons.index') }}">Addons</a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('vehicles.index') }}">Vehicles</a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('spareparts.index') }}">Spareparts</a>
+                                    </li>
+
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li class="text-black-50 ps-3">E-Commerce</li>
+                                    <li><hr class="dropdown-divider"></li>
+
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('promotions.index') }}">Promotions</a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('stores.index') }}">Stores</a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('delivery-methods.index') }}">Delivery Methods</a>
+                                    </li>
+
+                                    <li>
+                                        <a class="dropdown-item" href="{{ route('orders.index') }}">Orders</a>
                                     </li>
                                 </ul>
                             </li>
                         @endcan
                     </ul>
 
-                    <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
@@ -82,7 +129,7 @@
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
-                                                                                 document.getElementById('logout-form').submit();">
+                                                                             document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
 

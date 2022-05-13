@@ -15,25 +15,24 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+
             $table->string('name');
+
             $table->string('email')->unique();
 
             $table->timestamp('email_verified_at')->nullable();
 
             $table->string('password');
 
-            // Personal Information
             $table->enum('role', ['admin', 'customer'])->default('customer');
-            $table->enum('title', ['mr', 'mrs', 'miss', 'dr', 'prof', 'etc'])->nullable();
 
+            // Personal Information
+            $table->enum('title', ['mr', 'mrs', 'miss', 'dr', 'prof', 'etc'])->nullable();
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-
             $table->enum('gender', ['male', 'female'])->nullable();
-
-            $table->date('birth_day')->nullable();
-
-            $table->longText('bio')->nullable();
+            $table->date('birthday')->nullable();
+            $table->text('bio')->nullable();
 
             // Address
             $table->text('address_1')->nullable();
@@ -41,10 +40,12 @@ return new class extends Migration
 
             $table->string('city')->nullable();
             $table->string('postcode')->nullable();
-            $table->string('country')->default('LK')->nullable();
+            $table->string('county')->default('LK')->nullable();
 
             $table->string('phone')->nullable();
             $table->string('mobile')->unique()->nullable();
+
+            $table->string('avatar')->nullable();
 
             $table->rememberToken();
             $table->timestamps();

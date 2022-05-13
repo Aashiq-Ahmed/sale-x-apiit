@@ -21,14 +21,14 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',         //'admin' or 'customer'
+        'role',         // 'admin' or 'customer'
 
-        // Personel Information
-        'title',        // 'mr', 'mrs', 'miss', 'dr', 'prof', 'etc'
+        // Personal Information
+        'title',        // ['mr', 'mrs', 'miss', 'dr', 'prof', 'etc']
         'first_name',
         'last_name',
-        'gender',       // male, female
-        'birth_day',
+        'gender',       // 'male', 'female'
+        'birthday',
         'bio',
 
         // Address
@@ -36,9 +36,11 @@ class User extends Authenticatable
         'address_2',
         'city',
         'postcode',
-        'country',      //LK
+        'county',       // LK
         'phone',
         'mobile',
+
+        'avatar' // URL to avatar image
     ];
 
     /**

@@ -6,7 +6,6 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
-
 class DatabaseSeeder extends Seeder
 {
     /**
@@ -16,6 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
         \App\Models\User::create([
             'name' => 'Admin',
             'email' => 'admin@admin.com',
@@ -26,5 +26,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         \App\Models\User::factory(50)->create();
+
+        $this->call([
+            DeliveryMethodSeeder::class,
+            ManufacturerSeeder::class,
+            VehicleModelSeeder::class,
+        ]);
     }
 }
